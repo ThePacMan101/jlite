@@ -1,4 +1,4 @@
-# What is lite?
+# What is jlite?
 
 Lite is a personal project in which I develop a simple scripting language called lite.
 I intend on making two version of the interpreter, one in Java and the other in C++.
