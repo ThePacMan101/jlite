@@ -34,3 +34,17 @@ To uninstall, use:
 ```bash
 make uninstall
 ```
+
+## Grammar
+
+Current grammar for the language's Parser:
+```
+expression  -> equality
+equality    -> comparison (("!="|"==") comparison)*  
+comparison  -> term (("<"|">"|"<="|">=") term)*
+term        -> factor (("+"|"-") factor)*
+factor      -> unary (("*"|"/") unary)*
+unary       -> ("!"|"-") unary | primary
+primary     -> NUMBER | STRING | "true" | "false" | "nil" |"("expression")"
+
+```
