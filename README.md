@@ -8,3 +8,29 @@ The reason behind this is a personal interest in the area of Compilers and Inter
 As references, I use Crafting Interpreters and the Dragon Book.
 
 The language is basically the same as lox (from Crafting Interpreters). With some modifications made by myself.
+
+## How to build and run
+### Build
+To build Jlite, go on the root directory for this project and use;
+```bash
+make jar
+```
+### Install
+Then, to install jlite, use:
+```bash
+make install
+```
+This already adds the path to the `.jar` file to your system's `PATH`. 
+### Run
+To run, just call jlite, with or without a input file. Using jlite on its own opens up a REPL terminal, which can be exited by pressing `ctrl+D` (a.k.a. typying `EOF`).
+```bash
+jlite
+```
+```bash
+jlite main.jl
+```
+### Uninstall
+To uninstall, use:
+```bash
+make uninstall
+```
