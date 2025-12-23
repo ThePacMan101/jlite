@@ -26,11 +26,20 @@ class Parser{
         return equality();
     }
     private Expr equality(){
-        Expr expr = comparison();
+        Expr expr = bitComparison();
         while(match(EQUAL_EQUAL,BANG_EQUAL)){
             Token operator = previous();
-            Expr right = comparison();
+            Expr right = bitComparison();
             expr = new Expr.Binary(expr,operator,right);
+        }
+        return expr;
+    }
+    private Expr bitComparison(){
+        Expr expr = comparison();
+        while(match(BIT_AND,BIT_XOR,BIT_OR)){
+            Token operator = previous();
+            Expr right = comparison();
+            expr = new Expr.Binary(expr, operator, right);
         }
         return expr;
     }
@@ -62,7 +71,7 @@ class Parser{
         return expr;
     }
     private Expr unary(){
-        if(match(BANG,MINUS)){
+        if(match(BANG,MINUS,BIT_NOT)){
             Token operator = previous();
             Expr right = unary();
             return new Expr.Unary(operator,right);

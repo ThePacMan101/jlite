@@ -64,6 +64,10 @@ public class Scanner {
             case '+': addToken(PLUS);break;
             case ';': addToken(SEMICOLON);break;
             case '*': addToken(STAR);break;        
+            case '|': addToken(BIT_OR);break;        
+            case '&': addToken(BIT_AND);break;        
+            case '^': addToken(BIT_XOR);break;        
+            case '~': addToken(BIT_NOT);break;        
             
             case '!': addToken(match('=')?BANG_EQUAL:BANG);break;
             case '=': addToken(match('=')?EQUAL_EQUAL:EQUAL);break;

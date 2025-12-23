@@ -6,6 +6,8 @@ enum TokenType{
     LEFT_BRACE,RIGHT_BRACE,
     COMMA,DOT,SEMICOLON,
     MINUS,PLUS,SLASH,STAR,
+    BIT_OR,BIT_AND,BIT_XOR,
+    BIT_NOT,
 
     // One or two symbols
     BANG,BANG_EQUAL,EQUAL,EQUAL_EQUAL,
