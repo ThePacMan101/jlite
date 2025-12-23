@@ -47,9 +47,12 @@ public class Lite{
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
         
-        for(Token token: tokens){
-            System.out.print(token+" ");
-        }
+        Parser parser = new Parser(tokens);
+        Expr expr = parser.parse();
+        System.out.println(expr);
+        // for(Token token: tokens){
+        //     System.out.print(token+" ");
+        // }
     }
 
     static void error(int line, String message){
