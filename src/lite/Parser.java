@@ -84,6 +84,9 @@ class Parser{
         if(match(NIL)) return new Expr.Literal(null);
         if(match(NUMBER,STRING)) return new Expr.Literal(previous().literal);
 
+        // maybe change this later
+        if(match(IDENTIFIER)) return new Expr.Literal(previous().lexeme);
+
         if(match(LEFT_PAREN)){
             Expr expr = expression();
             consume(RIGHT_PAREN, "Expect ')' after expression.");
