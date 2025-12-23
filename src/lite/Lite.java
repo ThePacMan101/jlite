@@ -48,8 +48,11 @@ public class Lite{
         List<Token> tokens = scanner.scanTokens();
         
         Parser parser = new Parser(tokens);
-        Expr expr = parser.parse();
-        System.out.println(expr);
+        Expr expression = parser.parse();
+        
+        if(hadError) return;
+
+        System.out.println(new AstPrinter().print(expression));
         // for(Token token: tokens){
         //     System.out.print(token+" ");
         // }
