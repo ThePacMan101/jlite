@@ -154,8 +154,11 @@ public class Scanner {
         } 
 
         while(isHexchar(peek())) advance();
-
-        addToken(NUMBER,(double)HexFormat.fromHexDigits(source.substring(start+2,current)));
+        try{
+            addToken(NUMBER,(double)HexFormat.fromHexDigitsToLong(source.substring(start+2,current)));
+        } catch(IllegalArgumentException error){
+            Lite.error(line,"Too long Hexadecimal digit, maximum supported is 16 digits.");
+        }
     }
     private void identifier(){
         while(isAlphaNum(peek())) advance();
