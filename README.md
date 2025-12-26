@@ -13,7 +13,7 @@ The language is basically the same as lox (from Crafting Interpreters). With som
 ### Build
 To build Jlite, go on the root directory for this project and use;
 ```bash
-make jar
+make
 ```
 ### Install
 Then, to install jlite, use:
@@ -27,7 +27,7 @@ To run, just call jlite, with or without a input file. Using jlite on its own op
 jlite
 ```
 ```bash
-jlite main.jl
+jlite main.jlite
 ```
 ### Uninstall
 To uninstall, use:
