@@ -4,6 +4,7 @@ import static lite.TokenType.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -88,7 +89,10 @@ public class Scanner {
             
             default: 
                 if(isDigit(c)){
-                    number();
+                    if(c=='0' && peek()=='x') {
+                        advance();
+                        hexNumber();
+                    }else number();
                 }else if(isAlpha(c)){
                     identifier();    
                 }else{
@@ -143,6 +147,18 @@ public class Scanner {
         while(isDigit(peek())) advance();
         addToken(NUMBER,Double.parseDouble(source.substring(start,current)));
     }
+    private void hexNumber(){
+        if(!isHexchar(peek())){
+            Lite.error(line,"Unterminated hexadecimal number.");
+            return;
+        } 
+
+        while(isHexchar(peek())) advance();
+        
+        System.out.println(source.substring(start+2,current));
+
+        addToken(NUMBER,(double)HexFormat.fromHexDigits(source.substring(start+2,current)));
+    }
     private void identifier(){
         while(isAlphaNum(peek())) advance();
 
@@ -158,6 +174,11 @@ public class Scanner {
         return (c>='a'&&c<='z')
             || (c>='A'&&c<='Z')
             || (c=='_');
+    }
+    private boolean isHexchar(char c){
+        return (c>='a'&&c<='f')
+            || (c>='A'&&c<='F')
+            || isDigit(c);
     }
     private boolean isDigit(char c){
         return c>='0' && c<='9';
