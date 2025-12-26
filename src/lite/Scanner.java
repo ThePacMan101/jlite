@@ -154,8 +154,6 @@ public class Scanner {
         } 
 
         while(isHexchar(peek())) advance();
-        
-        System.out.println(source.substring(start+2,current));
 
         addToken(NUMBER,(double)HexFormat.fromHexDigits(source.substring(start+2,current)));
     }
