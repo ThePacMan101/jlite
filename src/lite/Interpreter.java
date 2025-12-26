@@ -21,6 +21,16 @@ public class Interpreter implements Expr.Visitor<Object> {
                     return (double)left + (double)right;
                 }else if(left instanceof String && right instanceof String){
                     return (String)left + (String)right;
+                }else if(left instanceof String && right instanceof Double){
+                    String stringified = right.toString();
+                    if(stringified.endsWith(".0"))
+                        stringified = stringified.substring(0,stringified.length()-2);
+                    return (String)left + stringified;
+                }else if(left instanceof Double && right instanceof String){
+                    String stringified = left.toString();
+                    if(stringified.endsWith(".0"))
+                        stringified = stringified.substring(0,stringified.length()-2);
+                    return stringified + (String)right;
                 }
                 throw new RuntimeError(expr.operator,"Operands must be two numbers or two strings.");
             case SLASH: 
