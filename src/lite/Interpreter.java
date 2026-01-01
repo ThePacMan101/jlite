@@ -52,6 +52,11 @@ public class Interpreter implements Expr.Visitor<Object> {
             case LESS_EQUAL:    
                 checkNumberOperands(expr.operator, left,right);    
                 return (double)left <= (double)right;
+
+            case OR:
+                return isTruthy(left)||isTruthy(right);
+            case AND:
+                return isTruthy(left)&&isTruthy(right);
             
             case BIT_AND:
                 checkRoundNumberOperands(expr.operator, left, right);
