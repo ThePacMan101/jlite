@@ -39,6 +39,10 @@ make uninstall
 
 Current grammar for the language's Parser:
 ```
+program       -> statement * EOF 
+statement     -> exprStmt | printStmt 
+exprStmt      -> expression ";"
+printStmt     -> "print" expression ";"
 expression    -> equality
 equality      -> logComparison (("!="|"==") logComparison)*
 logComparison -> bitComparison (("and"|"or") bitComparison)*
