@@ -40,7 +40,8 @@ make uninstall
 Current grammar for the language's Parser:
 ```
 expression    -> equality
-equality      -> bitComparison (("!="|"==") bitComparison)*
+equality      -> logComparison (("!="|"==") logComparison)*
+logComparison -> bitComparison (("and"|"or") bitComparison)*
 bitComparison -> comparison (("|" | "^" | "&") comparison)* 
 comparison    -> term (("<"|">"|"<="|">=") term)*
 term          -> factor (("+"|"-") factor)*
