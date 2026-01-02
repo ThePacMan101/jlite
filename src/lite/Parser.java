@@ -26,11 +26,20 @@ class Parser{
         return equality();
     }
     private Expr equality(){
-        Expr expr = bitComparison();
+        Expr expr = logComparison();
         while(match(EQUAL_EQUAL,BANG_EQUAL)){
             Token operator = previous();
-            Expr right = bitComparison();
+            Expr right = logComparison();
             expr = new Expr.Binary(expr,operator,right);
+        }
+        return expr;
+    }
+    private Expr logComparison(){
+        Expr expr = bitComparison();
+        while(match(AND,OR)){
+            Token operator = previous();
+            Expr right = bitComparison();
+            expr = new Expr.Binary(expr, operator, right);
         }
         return expr;
     }
