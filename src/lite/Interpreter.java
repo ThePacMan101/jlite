@@ -54,9 +54,14 @@ public class Interpreter implements Expr.Visitor<Object> {
                 return (double)left <= (double)right;
 
             case OR:
-                return isTruthy(left)||isTruthy(right);
+                if(isTruthy(left)) return left;
+                if(isTruthy(right)) return right;
+                return false;
+                // return isTruthy(left)||isTruthy(right);
             case AND:
-                return isTruthy(left)&&isTruthy(right);
+                if(isTruthy(left)) if(isTruthy(right)) return right;
+                return false;
+                // return isTruthy(left)&&isTruthy(right);
             
             case BIT_AND:
                 checkRoundNumberOperands(expr.operator, left, right);
