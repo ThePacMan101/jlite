@@ -39,7 +39,9 @@ make uninstall
 
 Current grammar for the language's Parser:
 ```
-program       -> statement * EOF 
+program       -> declaration * EOF
+declaraion    -> varDecl | statement; 
+varDecl       -> "var" IDENTIFIER ("=" exrpession)? ";"
 statement     -> exprStmt | printStmt 
 exprStmt      -> expression ";"
 printStmt     -> "print" expression ";"
