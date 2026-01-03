@@ -7,6 +7,7 @@ abstract class ExprVisitor{
 		T visitBinaryExpr(Binary expr);
 		T visitTernaryExpr(Ternary expr);
 		T visitUnaryExpr(Unary expr);
+		T visitVariableExpr(Variable expr);
 		T visitGroupingExpr(Grouping expr);
 		T visitLiteralExpr(Literal expr);
 	}

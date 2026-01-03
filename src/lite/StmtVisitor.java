@@ -6,5 +6,6 @@ abstract class StmtVisitor{
 	interface Visitor<T> {
 		T visitExpressionStmt(Expression stmt);
 		T visitPrintStmt(Print stmt);
+		T visitVarStmt(Var stmt);
 	}
 }

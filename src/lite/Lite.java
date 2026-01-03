@@ -58,7 +58,7 @@ public class Lite{
 
         interpreter.interpret(statements);
         
-        // System.out.println(new AstPrinter().print(expression));
+        // System.out.println(new AstPrinter().print(statements));
         
         // for(Token token: tokens){
         //     System.out.print(token+" ");

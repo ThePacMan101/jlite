@@ -58,11 +58,13 @@ if __name__=="__main__":
     define_ast("Stmt", {
         "Expression":["Expr expression"],
         "Print":["Expr expression"],
+        "Var":["Token name","Expr initializer"]
     })
     define_ast("Expr", {
         "Binary"   : ["Expr left", "Token operator", "Expr right"],
         "Ternary"  : ["Expr left", "Expr middle", "Expr right"],
         "Unary"    : ["Token operator", "Expr right"],
+        "Variable" : ["Token name"],
         "Grouping" : ["Expr expression"],
         "Literal"  : ["Object value"]
     })

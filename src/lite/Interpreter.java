@@ -1,7 +1,8 @@
 package lite;
 
 import lite.Expr.*;
-import lite.Expr.Unary;
+
+import java.beans.Expression;
 import java.lang.Math;
 import java.util.List;
 
@@ -111,6 +112,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Object visitVariableExpr(Variable expr) {
+        return expr.name.literal;
+    }
+
+    @Override
     public Object visitGroupingExpr(Grouping expr) {
         return evaluate(expr.expression);
     }
@@ -130,6 +136,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt){
         evaluate(stmt.expression);
+        return null;
+    }
+
+    // TODO: IMPLEMENT THIS
+    @Override
+    public Void visitVarStmt(Stmt.Var stmt){
         return null;
     }
 
