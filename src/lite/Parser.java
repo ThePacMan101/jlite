@@ -3,8 +3,6 @@ package lite;
 import java.util.ArrayList;
 import java.util.List;
 import static lite.TokenType.*;
-import lite.Stmt;
-import lite.Stmt.Expression;
 
 class Parser{
     private static class ParseError extends RuntimeException{}
@@ -211,6 +209,7 @@ class Parser{
                 case PRINT:
                 case RETURN:
                     return;
+                default:
             }
 
             advance();
