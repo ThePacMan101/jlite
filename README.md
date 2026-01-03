@@ -53,7 +53,7 @@ comparison    -> term (("<"|">"|"<="|">=") term)*
 term          -> factor (("+"|"-") factor)*
 factor        -> unary (("*"|"/") unary)*
 unary         -> ("!"|"-"|"~") unary | primary
-primary       -> NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
+primary       -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
 
 ```
 
