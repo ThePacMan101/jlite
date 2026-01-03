@@ -10,8 +10,8 @@ dir_path = sys.argv[1]
 
 ## Generates files with Visitor boilerplate
 def define_ast(BASE,types):
-    file_name = dir_path+"/"+BASE+".java"
-    with open(file_name,"w") as f:
+    base_file_name = dir_path+"/"+BASE+".java"
+    with open(base_file_name,"w") as f:
         print("package lite;",file=f)
         print("",file=f)
         print("abstract class "+BASE+"{",file=f)
@@ -39,6 +39,18 @@ def define_ast(BASE,types):
             print("\t\t}",file=f)
             print("\t}",file=f)
                 
+        print("}",file=f)
+    visitor_file_name = dir_path+"/"+BASE+"Visitor.java"
+    with open(visitor_file_name,"w") as f:
+        print("package lite;",file=f)
+        print("",file=f)
+        print("import static lite."+BASE+".*;",file=f)
+        print("",file=f)
+        print("abstract class "+BASE+"Visitor{",file=f)
+        print("\tinterface Visitor<T> {",file=f)
+        for type in types.keys():
+            print("\t\tT visit"+type+BASE+"("+type+" "+BASE.lower()+");",file=f)
+        print("\t}",file=f)
         print("}",file=f)
 
 
