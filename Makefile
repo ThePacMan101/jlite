@@ -21,13 +21,18 @@ CLASSPATH := $(BUILD_DIR)
 
 BIN_DIR	?= $(HOME)/.local/bin
 
-.PHONY: jar compile clean help install uninstall
+.PHONY: jar compile clean help install uninstall generate
 
 # Default goal builds the jar
 .DEFAULT_GOAL := jar
 
+# Generate AST/visitor classes from script
+generate:
+	@echo "Generating AST classes..."
+	@python3 scripts/generate_ast_classes.py $(SRC_DIR)/lite
+
 # Compile all sources to classes under build/
-compile:
+compile: generate
 	@mkdir -p $(BUILD_DIR)
 	$(JAVAC) $(JFLAGS) -d $(BUILD_DIR) -cp $(CLASSPATH) -sourcepath $(SRC_DIR) $(SOURCES)
 
@@ -63,6 +68,7 @@ uninstall:
 # Friendly help output
 help:
 	@echo "Targets:"
+	@echo "  generate       Generate AST classes from script"
 	@echo "  jar            Build runnable jar (default)"
 	@echo "  compile        Compile sources to classes"
 	@echo "  install        Install wrapper script to $(BIN_DIR)"
