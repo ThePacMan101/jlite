@@ -2,6 +2,7 @@ package lite;
 
 import java.util.List;
 
+import lite.Expr.Assign;
 import lite.Stmt.Expression;
 import lite.Stmt.Print;
 import lite.Stmt.Var;
@@ -84,5 +85,10 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
         builder.append(")");
 
         return builder.toString();
+    }
+
+    @Override
+    public String visitAssignExpr(Assign expr) {
+        return parenthesize(expr.name.lexeme+" =",expr.value);
     }
 }

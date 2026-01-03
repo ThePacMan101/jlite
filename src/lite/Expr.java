@@ -7,6 +7,7 @@ abstract class Expr{
 	interface Visitor<T> {
 		T visitBinaryExpr(Binary expr);
 		T visitTernaryExpr(Ternary expr);
+		T visitAssignExpr(Assign expr);
 		T visitUnaryExpr(Unary expr);
 		T visitVariableExpr(Variable expr);
 		T visitGroupingExpr(Grouping expr);
@@ -39,6 +40,18 @@ abstract class Expr{
 		@Override
 		<T> T accept(Visitor<T> visitor){
 			return visitor.visitTernaryExpr(this);
+		}
+	}
+	static class Assign extends Expr {
+		Assign(Token name, Expr value){
+			this.name=name;
+			this.value=value;
+		}
+		final Token name;
+		final Expr value;
+		@Override
+		<T> T accept(Visitor<T> visitor){
+			return visitor.visitAssignExpr(this);
 		}
 	}
 	static class Unary extends Expr {

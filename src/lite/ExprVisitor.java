@@ -6,6 +6,7 @@ abstract class ExprVisitor{
 	interface Visitor<T> {
 		T visitBinaryExpr(Binary expr);
 		T visitTernaryExpr(Ternary expr);
+		T visitAssignExpr(Assign expr);
 		T visitUnaryExpr(Unary expr);
 		T visitVariableExpr(Variable expr);
 		T visitGroupingExpr(Grouping expr);

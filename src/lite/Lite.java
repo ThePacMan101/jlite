@@ -58,11 +58,13 @@ public class Lite{
 
         interpreter.interpret(statements);
         
-        // System.out.println(new AstPrinter().print(statements));
+        System.out.println(new AstPrinter().print(statements));
         
-        // for(Token token: tokens){
-        //     System.out.print(token+" ");
-        // }
+        for(Token token: tokens){
+            System.out.print(token+" ");
+        }
+        System.out.println("");
+        
     }
 
     static void error(int line, String message){

@@ -95,6 +95,14 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Object visitAssignExpr(Assign expr) {
+        System.err.println(new AstPrinter().print(expr));
+        Object value = evaluate(expr.value);
+        environment.assign(expr.name,value);
+        return value;
+    }
+
+    @Override
     public Object visitUnaryExpr(Unary expr) {
         Object right = evaluate(expr.right);
         switch (expr.operator.type) {
@@ -140,7 +148,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return null;
     }
 
-    // TODO: IMPLEMENT THIS
     @Override
     public Void visitVarStmt(Stmt.Var stmt){
         Object value = null;
