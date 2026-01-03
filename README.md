@@ -40,7 +40,7 @@ make uninstall
 Current grammar for the language's Parser:
 ```
 program       -> declaration * EOF
-declaraion    -> varDecl | statement; 
+declaration    -> varDecl | statement; 
 varDecl       -> "var" IDENTIFIER ("=" exrpession)? ";"
 statement     -> exprStmt | printStmt 
 exprStmt      -> expression ";"
