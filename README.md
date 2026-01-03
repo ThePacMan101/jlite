@@ -45,7 +45,8 @@ varDecl       -> "var" IDENTIFIER ("=" exrpession)? ";"
 statement     -> exprStmt | printStmt 
 exprStmt      -> expression ";"
 printStmt     -> "print" expression ";"
-expression    -> equality
+expression    -> assignment
+assignment    -> equality | IDENTIFIER "=" assignment;
 equality      -> logComparison (("!="|"==") logComparison)*
 logComparison -> bitComparison (("and"|"or") bitComparison)*
 bitComparison -> comparison (("|" | "^" | "&") comparison)* 
