@@ -6,6 +6,7 @@ abstract class Expr{
 
 	interface Visitor<T> {
 		T visitBinaryExpr(Binary expr);
+		T visitTernaryExpr(Ternary expr);
 		T visitUnaryExpr(Unary expr);
 		T visitGroupingExpr(Grouping expr);
 		T visitLiteralExpr(Literal expr);
@@ -23,6 +24,20 @@ abstract class Expr{
 		@Override
 		<T> T accept(Visitor<T> visitor){
 			return visitor.visitBinaryExpr(this);
+		}
+	}
+	static class Ternary extends Expr {
+		Ternary(Expr left, Expr middle, Expr right){
+			this.left=left;
+			this.middle=middle;
+			this.right=right;
+		}
+		final Expr left;
+		final Expr middle;
+		final Expr right;
+		@Override
+		<T> T accept(Visitor<T> visitor){
+			return visitor.visitTernaryExpr(this);
 		}
 	}
 	static class Unary extends Expr {

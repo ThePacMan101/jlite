@@ -1,13 +1,21 @@
 package lite;
 
-import lite.Expr.Binary;
-import lite.Expr.Grouping;
-import lite.Expr.Literal;
+import lite.Expr.*;
 import lite.Expr.Unary;
 import java.lang.Math;
 import java.util.List;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
+
+    @Override
+    public Object visitTernaryExpr(Ternary expr){
+        Object left = evaluate(expr.left  );
+        
+        if(isTruthy(left)) 
+            return evaluate(expr.middle);
+        else 
+            return evaluate(expr.right);
+    }
 
     @Override
     public Object visitBinaryExpr(Binary expr) {

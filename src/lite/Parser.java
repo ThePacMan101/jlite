@@ -111,11 +111,17 @@ class Parser{
         if(match(NUMBER,STRING)) return new Expr.Literal(previous().literal);
 
         // maybe change this later
-        if(match(IDENTIFIER)) return new Expr.Literal(previous().lexeme);
+        // if(match(IDENTIFIER)) return new Expr.Literal(previous().lexeme);
 
         if(match(LEFT_PAREN)){
             Expr expr = expression();
             consume(RIGHT_PAREN, "Expect ')' after expression.");
+            if(match(QUESTION_MARK)){
+                Expr middle = expression();
+                consume(COLON, "Expect ':' after expression.");
+                Expr right = expression();
+                return new Expr.Ternary(expr,middle,right);
+            }
             return new Expr.Grouping(expr);
         }
 
