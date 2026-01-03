@@ -61,6 +61,7 @@ if __name__=="__main__":
     })
     define_ast("Expr", {
         "Binary"   : ["Expr left", "Token operator", "Expr right"],
+        "Ternary"  : ["Expr left", "Expr middle", "Expr right"],
         "Unary"    : ["Token operator", "Expr right"],
         "Grouping" : ["Expr expression"],
         "Literal"  : ["Object value"]
