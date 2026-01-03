@@ -114,6 +114,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             case BIT_NOT:
                 checkRoundNumberOperand(expr.operator, right);  
                 return (double)(~(int)Math.round((double)right));
+            default: // supress warning
         }
 
         // unreachable

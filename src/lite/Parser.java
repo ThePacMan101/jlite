@@ -209,7 +209,7 @@ class Parser{
                 case PRINT:
                 case RETURN:
                     return;
-                default:
+                default: // supress warning
             }
 
             advance();
