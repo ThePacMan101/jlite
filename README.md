@@ -39,24 +39,25 @@ make uninstall
 
 Current grammar for the language's Parser:
 ```
-program       -> declaration * EOF
+program        -> declaration * EOF
 declaration    -> varDecl | statement; 
-varDecl       -> "var" IDENTIFIER ("=" exrpession)? ";"
-statement     -> exprStmt | printStmt | block | ifStatement
-exprStmt      -> expression ";"
-printStmt     -> "print" expression ";"
-block         -> "{" declaration* "}"
-ifStatement   -> "if" "(" expression ")" statement ("else" statement)?
-expression    -> assignment
-assignment    -> equality | IDENTIFIER "=" assignment;
-equality      -> logComparison (("!="|"==") logComparison)*
-logComparison -> bitComparison (("and"|"or") bitComparison)*
-bitComparison -> comparison (("|" | "^" | "&") comparison)* 
-comparison    -> term (("<"|">"|"<="|">=") term)*
-term          -> factor (("+"|"-") factor)*
-factor        -> unary (("*"|"/") unary)*
-unary         -> ("!"|"-"|"~") unary | primary
-primary       -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
+varDecl        -> "var" IDENTIFIER ("=" exrpession)? ";"
+statement      -> exprStmt | printStmt | block | ifStatement | whileStatement
+exprStmt       -> expression ";"
+printStmt      -> "print" expression ";"
+block          -> "{" declaration* "}"
+ifStatement    -> "if" "(" expression ")" statement ("else" statement)?
+whileStatement -> "while" "(" expression ")" statement
+expression     -> assignment
+assignment     -> equality | IDENTIFIER "=" assignment;
+equality       -> logComparison (("!="|"==") logComparison)*
+logComparison  -> bitComparison (("and"|"or") bitComparison)*
+bitComparison  -> comparison (("|" | "^" | "&") comparison)* 
+comparison     -> term (("<"|">"|"<="|">=") term)*
+term           -> factor (("+"|"-") factor)*
+factor         -> unary (("*"|"/") unary)*
+unary          -> ("!"|"-"|"~") unary | primary
+primary        -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
 
 ```
 
