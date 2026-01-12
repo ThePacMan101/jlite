@@ -75,6 +75,11 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
     }
 
     @Override
+    public String visitWhileStmt(Stmt.While stmt) { 
+        return parenthesize("while("+stmt.condition.accept(this)+")", stmt.body);
+    }
+
+    @Override
     public String visitBlockStmt(Stmt.Block stmt) {
         StringBuilder builder = new StringBuilder();
         builder.append("(")

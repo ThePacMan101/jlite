@@ -75,7 +75,8 @@ if __name__=="__main__":
         "Expression" : ["Expr expression"],
         "If"         : ["Expr condition","Stmt thenBranch","Stmt elseBranch"],
         "Print"      : ["Expr expression"],
-        "Var"        : ["Token name","Expr initializer"]
+        "Var"        : ["Token name","Expr initializer"],
+        "While"      : ["Expr condition","Stmt body"]
     },dependencies=["java.util.List"])
     define_ast("Expr", {
         "Binary"   : ["Expr left", "Token operator", "Expr right"],

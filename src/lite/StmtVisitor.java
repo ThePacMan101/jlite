@@ -13,5 +13,6 @@ abstract class StmtVisitor{
 		T visitIfStmt(If stmt);
 		T visitPrintStmt(Print stmt);
 		T visitVarStmt(Var stmt);
+		T visitWhileStmt(While stmt);
 	}
 }
