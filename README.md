@@ -42,9 +42,10 @@ Current grammar for the language's Parser:
 program       -> declaration * EOF
 declaration    -> varDecl | statement; 
 varDecl       -> "var" IDENTIFIER ("=" exrpession)? ";"
-statement     -> exprStmt | printStmt 
+statement     -> exprStmt | printStmt | block
 exprStmt      -> expression ";"
 printStmt     -> "print" expression ";"
+block         -> "{" declaration* "}"
 expression    -> assignment
 assignment    -> equality | IDENTIFIER "=" assignment;
 equality      -> logComparison (("!="|"==") logComparison)*
