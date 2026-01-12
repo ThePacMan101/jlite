@@ -9,11 +9,15 @@ dir_path = sys.argv[1]
 
 
 ## Generates files with Visitor boilerplate
-def define_ast(BASE,types):
+def define_ast(BASE,types,dependencies=[]):
     base_file_name = dir_path+"/"+BASE+".java"
     with open(base_file_name,"w") as f:
         print("package lite;",file=f)
         print("",file=f)
+        for dependency in dependencies:
+            print("import "+dependency+";",file=f,end="\n")
+        if len(dependencies) > 0:
+            print("",file=f)
         print("abstract class "+BASE+"{",file=f)
         print("",file=f)
         print("\tabstract <T> T accept(Visitor<T> visitor);",file=f)
@@ -56,10 +60,11 @@ def define_ast(BASE,types):
 
 if __name__=="__main__":
     define_ast("Stmt", {
-        "Expression":["Expr expression"],
-        "Print":["Expr expression"],
-        "Var":["Token name","Expr initializer"]
-    })
+        "Block"      : ["List<Stmt> statements"],
+        "Expression" : ["Expr expression"],
+        "Print"      : ["Expr expression"],
+        "Var"        : ["Token name","Expr initializer"]
+    },dependencies=["java.util.List"])
     define_ast("Expr", {
         "Binary"   : ["Expr left", "Token operator", "Expr right"],
         "Ternary"  : ["Expr left", "Expr middle", "Expr right"],

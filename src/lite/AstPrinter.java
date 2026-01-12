@@ -3,9 +3,6 @@ package lite;
 import java.util.List;
 
 import lite.Expr.Assign;
-import lite.Stmt.Expression;
-import lite.Stmt.Print;
-import lite.Stmt.Var;
 
 class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
     String print(Expr expr){
@@ -55,19 +52,36 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
         if(expr.value==null) return "nil";
         return expr.value.toString();
     }        
+    @Override
+    public String visitAssignExpr(Assign expr) {
+        return parenthesize(expr.name.lexeme+" =",expr.value);
+    }
 
     @Override
-    public String visitExpressionStmt(Expression stmt) {
+    public String visitExpressionStmt(Stmt.Expression stmt) {
         return parenthesize("expression",stmt.expression);
     }
 
     @Override
-    public String visitPrintStmt(Print stmt) {
+    public String visitPrintStmt(Stmt.Print stmt) {
         return parenthesize("print",stmt.expression);
+    }
+    @Override
+    public String visitBlockStmt(Stmt.Block stmt){
+        StringBuilder builder = new StringBuilder();
+        builder.append("(")
+               .append("block")
+               .append("\n");
+        for(Stmt s : stmt.statements){
+            builder.append(s.accept(this))
+                   .append("\n");
+        }
+        builder.append(")");
+        return builder.toString();
     }
 
     @Override
-    public String visitVarStmt(Var stmt) {
+    public String visitVarStmt(Stmt.Var stmt) {
         if(stmt.initializer == null) 
             return parenthesize("var "+stmt.name.lexeme);
         else
@@ -87,8 +101,4 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
         return builder.toString();
     }
 
-    @Override
-    public String visitAssignExpr(Assign expr) {
-        return parenthesize(expr.name.lexeme+" =",expr.value);
-    }
 }
