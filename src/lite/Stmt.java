@@ -13,6 +13,7 @@ abstract class Stmt{
 	interface Visitor<T> {
 		T visitBlockStmt(Block stmt);
 		T visitExpressionStmt(Expression stmt);
+		T visitIfStmt(If stmt);
 		T visitPrintStmt(Print stmt);
 		T visitVarStmt(Var stmt);
 	}
@@ -35,6 +36,20 @@ abstract class Stmt{
 		@Override
 		<T> T accept(Visitor<T> visitor){
 			return visitor.visitExpressionStmt(this);
+		}
+	}
+	static class If extends Stmt {
+		If(Expr condition, Stmt thenBranch, Stmt elseBranch){
+			this.condition=condition;
+			this.thenBranch=thenBranch;
+			this.elseBranch=elseBranch;
+		}
+		final Expr condition;
+		final Stmt thenBranch;
+		final Stmt elseBranch;
+		@Override
+		<T> T accept(Visitor<T> visitor){
+			return visitor.visitIfStmt(this);
 		}
 	}
 	static class Print extends Stmt {

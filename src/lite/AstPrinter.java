@@ -66,8 +66,16 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
     public String visitPrintStmt(Stmt.Print stmt) {
         return parenthesize("print",stmt.expression);
     }
+
     @Override
-    public String visitBlockStmt(Stmt.Block stmt){
+    public String visitIfStmt(Stmt.If stmt) {
+        if(stmt.elseBranch == null)
+            return parenthesize("if("+stmt.condition.accept(this)+")", stmt.thenBranch);
+        return parenthesize("if("+stmt.condition.accept(this)+")", stmt.thenBranch , stmt.elseBranch);
+    }
+
+    @Override
+    public String visitBlockStmt(Stmt.Block stmt) {
         StringBuilder builder = new StringBuilder();
         builder.append("(")
                .append("block")
@@ -83,7 +91,7 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
     @Override
     public String visitVarStmt(Stmt.Var stmt) {
         if(stmt.initializer == null) 
-            return parenthesize("var "+stmt.name.lexeme);
+            return "(var "+stmt.name.lexeme+")";
         else
             return parenthesize("var "+stmt.name.lexeme+" =",stmt.initializer);
     }
@@ -95,6 +103,19 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
         for(Expr expr : exprs){
             builder.append(" ");
             builder.append(expr.accept(this));
+        }
+        builder.append(")");
+
+        return builder.toString();
+    }
+
+    private String parenthesize(String name, Stmt... stmts){
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("(").append(name);
+        for(Stmt stmt: stmts){
+            builder.append(" ");
+            builder.append(stmt.accept(this));
         }
         builder.append(")");
 

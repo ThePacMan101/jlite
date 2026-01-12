@@ -10,6 +10,7 @@ abstract class StmtVisitor{
 	interface Visitor<T> {
 		T visitBlockStmt(Block stmt);
 		T visitExpressionStmt(Expression stmt);
+		T visitIfStmt(If stmt);
 		T visitPrintStmt(Print stmt);
 		T visitVarStmt(Var stmt);
 	}
