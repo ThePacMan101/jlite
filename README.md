@@ -40,14 +40,15 @@ make uninstall
 Current grammar for the language's Parser:
 ```
 program        -> declaration * EOF
-declaration    -> varDecl | statement; 
+declaration    -> varDecl | statement
 varDecl        -> "var" IDENTIFIER ("=" exrpession)? ";"
-statement      -> exprStmt | printStmt | block | ifStatement | whileStatement
+statement      -> exprStmt | printStmt | block | ifStatement | whileStatement | forStatement
 exprStmt       -> expression ";"
 printStmt      -> "print" expression ";"
 block          -> "{" declaration* "}"
 ifStatement    -> "if" "(" expression ")" statement ("else" statement)?
 whileStatement -> "while" "(" expression ")" statement
+forStatement   -> "for" "(" ( varDecl | exprStmt | ";")  expression?  ";" expression? ")" statement
 expression     -> assignment
 assignment     -> equality | IDENTIFIER "=" assignment;
 equality       -> logComparison (("!="|"==") logComparison)*
