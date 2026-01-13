@@ -84,17 +84,19 @@ class Parser{
         return new Stmt.If(condition,thenBranch,elseBranch);
     }
     private Stmt whileStatement(){
+        consume(LEFT_PAREN, "Expect '(' after 'while'.");
+        Expr condition = expression();
+        consume(RIGHT_PAREN, "Expect ')' after while condition.");
+        
+        Stmt body;
         try{
             loopDepth++;
-            consume(LEFT_PAREN, "Expect '(' after 'while'.");
-            Expr condition = expression();
-            consume(RIGHT_PAREN, "Expect ')' after while condition.");
-    
-            Stmt body = statement();
-            return new Stmt.While(condition, body);
+            body = statement();
         }finally{
             loopDepth--;
         }
+
+        return new Stmt.While(condition, body);
     }
     private Stmt forStatement(){
         consume(LEFT_PAREN, "Expect '(' after 'for'.");
@@ -111,7 +113,13 @@ class Parser{
         if(!check(RIGHT_PAREN)) increment = expression();
         consume(RIGHT_PAREN, "Expect ')' after for clauses.");
         
-        Stmt body = statement();
+        Stmt body;
+        try{
+            loopDepth++;
+            body = statement();
+        }finally{
+            loopDepth--;
+        }
         
         if(increment!=null){
             body = new Stmt.Block(Arrays.asList(body,new Stmt.Expression(increment)));
