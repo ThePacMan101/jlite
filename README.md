@@ -39,27 +39,32 @@ make uninstall
 
 Current grammar for the language's Parser:
 ```
-program        -> declaration * EOF
-declaration    -> varDecl | statement
-varDecl        -> "var" IDENTIFIER ("=" exrpession)? ";"
-statement      -> exprStmt | printStmt | block | ifStatement | whileStatement | forStatement | breakStatement
-exprStmt       -> expression ";"
-printStmt      -> "print" expression ";"
-block          -> "{" declaration* "}"
-ifStatement    -> "if" "(" expression ")" statement ("else" statement)?
-whileStatement -> "while" "(" expression ")" statement
-forStatement   -> "for" "(" ( varDecl | exprStmt | ";")  expression?  ";" expression? ")" statement
-breakStatement -> "break" ";"
-expression     -> assignment
-assignment     -> equality | IDENTIFIER "=" assignment;
-equality       -> logComparison (("!="|"==") logComparison)*
-logComparison  -> bitComparison (("and"|"or") bitComparison)*
-bitComparison  -> comparison (("|" | "^" | "&") comparison)* 
-comparison     -> term (("<"|">"|"<="|">=") term)*
-term           -> factor (("+"|"-") factor)*
-factor         -> unary (("*"|"/") unary)*
-unary          -> ("!"|"-"|"~") unary | primary
-primary        -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
+program           -> declaration * EOF
+declaration       -> varDecl | statement
+varDecl           -> "var" IDENTIFIER ("=" exrpession)? ";"
+statement         -> exprStmt | printStmt | block 
+                   | ifStatement | whileStatement | forStatement 
+                   | breakStatement | continueStatement
+exprStmt          -> expression ";"
+printStmt         -> "print" expression ";"
+block             -> "{" declaration* "}"
+ifStatement       -> "if" "(" expression ")" statement ("else" statement)?
+whileStatement    -> "while" "(" expression ")" statement
+forStatement      -> "for" "(" ( varDecl | exprStmt | ";")  expression?  ";" expression? ")" statement
+breakStatement    -> "break" ";"
+continueStatement -> "continue" ";"
+expression        -> assignment
+assignment        -> equality | IDENTIFIER "=" assignment;
+equality          -> logComparison (("!="|"==") logComparison)*
+logComparison     -> bitComparison (("and"|"or") bitComparison)*
+bitComparison     -> comparison (("|" | "^" | "&") comparison)* 
+comparison        -> term (("<"|">"|"<="|">=") term)*
+term              -> factor (("+"|"-") factor)*
+factor            -> unary (("*"|"/") unary)*
+unary             -> ("!"|"-"|"~") unary | primary
+primary           -> IDENTIFIER | NUMBER | STRING 
+                   | "true" | "false" | "nil" |"("expression")" 
+                   | "("expression")?"expression":"expression
 
 ```
 
