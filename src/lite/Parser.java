@@ -44,6 +44,7 @@ class Parser{
         return new Stmt.Var(name, initializer);
     }
     private Stmt statement(){
+        if(match(CONTINUE)) return continueStatement();
         if(match(BREAK)) return breakStatement();
         if(match(FOR)) return forStatement();
         if(match(WHILE)) return whileStatement();
@@ -110,8 +111,13 @@ class Parser{
         Expr increment = null;
         if(!check(RIGHT_PAREN)) increment = expression();
         consume(RIGHT_PAREN, "Expect ')' after for clauses.");
-        
-        Stmt body = statement();
+        Stmt body;
+        try{
+            loopDepth++;
+            body = statement();
+        }finally{
+            loopDepth--;
+        }
         
         if(increment!=null){
             body = new Stmt.Block(Arrays.asList(body,new Stmt.Expression(increment)));
@@ -131,6 +137,12 @@ class Parser{
         consume(SEMICOLON, "Expect ';' after 'break'.");
         if(loopDepth <= 0) throw error(breakToken, "Cannot use 'break' statement outside of a loop.");
         return new Stmt.Break();
+    }
+    private Stmt continueStatement(){
+        Token continueToken= previous();
+        consume(SEMICOLON, "Expect ';' after 'continue'.");
+        if(loopDepth <= 0) throw error(continueToken, "Cannot use 'continue' statement outside of a loop.");
+        return new Stmt.Continue();
     }
     private Expr expression(){
         return assignment();
