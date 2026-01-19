@@ -26,14 +26,15 @@ class Parser{
     }
     private Stmt declaration(){
         try{
-            if(match(VAR)) return varDeclaration();
+            if(match(FN))  return function("function");
+            if(match(VAR)) return varDecl();
             return statement();
         } catch (ParseError error){
             synchronize();
             return null;
         }
     }
-    private Stmt varDeclaration(){
+    private Stmt varDecl(){
         Token name = consume(IDENTIFIER, "Expect variable name.");
 
         Expr initializer = null;
@@ -42,6 +43,23 @@ class Parser{
         }
         consume(SEMICOLON, "Expect ';' after variable declaration.");
         return new Stmt.Var(name, initializer);
+    }
+    private Stmt.Function function(String kind){
+        Token name = consume(IDENTIFIER, "Expect " + kind + " name.");
+        consume(LEFT_PAREN, "Expect '(' after "+kind+" name.");
+        List<Token> parameters = new ArrayList<>();
+        if(!check(RIGHT_PAREN)){
+            do{
+                if(parameters.size()>=255){
+                    error(peek(), "Can't have more than 255 parameters.");
+                }
+                parameters.add(consume(IDENTIFIER,"Expect parameter name."));
+            }while(match(COMMA));
+        }
+        consume(RIGHT_PAREN, "Expect ')' after parameters.");
+        consume(LEFT_BRACE, "Expect '{' before "+kind+" body.");
+        List<Stmt> body = block();
+        return new Stmt.Function(name, parameters, body);
     }
     private Stmt statement(){
         if(match(BREAK)) return breakStatement();
@@ -103,7 +121,7 @@ class Parser{
 
         Stmt initializer;
         if(match(SEMICOLON)) initializer = null;
-        else if(match(VAR)) initializer = varDeclaration();
+        else if(match(VAR)) initializer = varDecl();
         else initializer = expressionStatement();
 
         Expr condition = null;

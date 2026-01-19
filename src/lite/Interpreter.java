@@ -299,6 +299,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         throw new BreakException();
     }
 
+    @Override
+    public Void visitFunctionStmt(Stmt.Function stmt){
+        LiteFunction function = new LiteFunction(stmt);
+        environment.define(stmt.name.lexeme, function);
+        return null;
+    }
+
     private Object evaluate(Expr expr){
         return expr.accept(this);
     }
@@ -363,7 +370,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         stmt.accept(this);
     }
 
-    private void executeBlock(List<Stmt> statements, Environment environment){
+    public void executeBlock(List<Stmt> statements, Environment environment){
         Environment previous = this.environment;
         try{
             this.environment = environment;

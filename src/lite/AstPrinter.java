@@ -110,6 +110,11 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
     public String visitCallExpr(Expr.Call expr) {
         return "(haven't implemented call expressions)";
     }
+    
+    @Override
+    public String visitFunctionStmt(Stmt.Function stmt) {
+        return "(haven't implemented function declarations)";
+    }
 
     private String parenthesize(String name, Expr... exprs){
         StringBuilder builder = new StringBuilder();
