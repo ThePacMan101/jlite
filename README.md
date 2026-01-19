@@ -39,32 +39,33 @@ make uninstall
 
 Current grammar for the language's Parser:
 ```
-program        -> declaration * EOF
-declaration    -> varDecl | fnDecl | statement
-varDecl        -> "var" IDENTIFIER ("=" exrpession)? ";"
-fnDecl         -> "fn" function
-function       -> IDENTIFIER "(" parameters? ")" block
-parameters     -> IDENTIFIER ("," IDENTIFIER)*
-statement      -> exprStmt | printStmt | block | ifStatement | whileStatement | forStatement | breakStatement
-exprStmt       -> expression ";"
-printStmt      -> "print" expression ";"
-block          -> "{" declaration* "}"
-ifStatement    -> "if" "(" expression ")" statement ("else" statement)?
-whileStatement -> "while" "(" expression ")" statement
-forStatement   -> "for" "(" ( varDecl | exprStmt | ";")  expression?  ";" expression? ")" statement
-breakStatement -> "break" ";"
-expression     -> assignment
-assignment     -> equality | IDENTIFIER "=" assignment;
-equality       -> logComparison (("!="|"==") logComparison)*
-logComparison  -> bitComparison (("and"|"or") bitComparison)*
-bitComparison  -> comparison (("|" | "^" | "&") comparison)* 
-comparison     -> term (("<"|">"|"<="|">=") term)*
-term           -> factor (("+"|"-") factor)*
-factor         -> unary (("*"|"/") unary)*
-unary          -> ("!"|"-"|"~") unary | call
-call           -> primary ( "(" arguments? ")" )*
-primary        -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
-arguments      -> expression ( "," expression)*
+program         -> declaration * EOF
+declaration     -> varDecl | fnDecl | statement
+varDecl         -> "var" IDENTIFIER ("=" exrpession)? ";"
+fnDecl          -> "fn" function
+function        -> IDENTIFIER "(" parameters? ")" block
+parameters      -> IDENTIFIER ("," IDENTIFIER)*
+statement       -> exprStmt | printStmt | block | ifStatement | whileStatement | forStatement | breakStatement | returnStatement
+returnStatement -> "return" expression? ";"
+exprStmt        -> expression ";"
+printStmt       -> "print" expression ";"
+block           -> "{" declaration* "}"
+ifStatement     -> "if" "(" expression ")" statement ("else" statement)?
+whileStatement  -> "while" "(" expression ")" statement
+forStatement    -> "for" "(" ( varDecl | exprStmt | ";")  expression?  ";" expression? ")" statement
+breakStatement  -> "break" ";"
+expression      -> assignment
+assignment      -> equality | IDENTIFIER "=" assignment;
+equality        -> logComparison (("!="|"==") logComparison)*
+logComparison   -> bitComparison (("and"|"or") bitComparison)*
+bitComparison   -> comparison (("|" | "^" | "&") comparison)* 
+comparison      -> term (("<"|">"|"<="|">=") term)*
+term            -> factor (("+"|"-") factor)*
+factor          -> unary (("*"|"/") unary)*
+unary           -> ("!"|"-"|"~") unary | call
+call            -> primary ( "(" arguments? ")" )*
+primary         -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
+arguments       -> expression ( "," expression)*
 
 ```
 
