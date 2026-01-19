@@ -4,6 +4,7 @@ import lite.Expr.*;
 
 import java.lang.Math;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
@@ -133,6 +134,19 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Object visitLiteralExpr(Literal expr) {
         return expr.value;
+    }
+
+    @Override
+    public Object visitCallExpr(Call expr) {
+        Object callee = evaluate(expr.callee);
+
+        List<Object> arguments = new ArrayList<>();
+        for(Expr argument : expr.arguments){
+            arguments.add(evaluate(argument));
+        }
+
+        LiteCallable function = (LiteCallable)callee;
+        return function.call(this,arguments);
     }
 
     @Override

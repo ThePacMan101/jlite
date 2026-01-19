@@ -9,6 +9,7 @@ import static lite.Expr.*;
 abstract class ExprVisitor{
 	interface Visitor<T> {
 		T visitBinaryExpr(Binary expr);
+		T visitCallExpr(Call expr);
 		T visitTernaryExpr(Ternary expr);
 		T visitAssignExpr(Assign expr);
 		T visitUnaryExpr(Unary expr);

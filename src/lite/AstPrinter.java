@@ -106,6 +106,11 @@ class AstPrinter implements Expr.Visitor<String>, Stmt.Visitor<String>{
             return parenthesize("var "+stmt.name.lexeme+" =",stmt.initializer);
     }
 
+    @Override
+    public String visitCallExpr(Expr.Call expr) {
+        return "(haven't implemented call expressions)";
+    }
+
     private String parenthesize(String name, Expr... exprs){
         StringBuilder builder = new StringBuilder();
 

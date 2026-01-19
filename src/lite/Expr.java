@@ -4,12 +4,15 @@
 
 package lite;
 
+import java.util.List;
+
 abstract class Expr{
 
 	abstract <T> T accept(Visitor<T> visitor);
 
 	interface Visitor<T> {
 		T visitBinaryExpr(Binary expr);
+		T visitCallExpr(Call expr);
 		T visitTernaryExpr(Ternary expr);
 		T visitAssignExpr(Assign expr);
 		T visitUnaryExpr(Unary expr);
@@ -30,6 +33,20 @@ abstract class Expr{
 		@Override
 		<T> T accept(Visitor<T> visitor){
 			return visitor.visitBinaryExpr(this);
+		}
+	}
+	static class Call extends Expr {
+		Call(Expr callee, Token paren, List<Expr> arguments){
+			this.callee=callee;
+			this.paren=paren;
+			this.arguments=arguments;
+		}
+		final Expr callee;
+		final Token paren;
+		final List<Expr> arguments;
+		@Override
+		<T> T accept(Visitor<T> visitor){
+			return visitor.visitCallExpr(this);
 		}
 	}
 	static class Ternary extends Expr {
