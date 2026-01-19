@@ -78,6 +78,7 @@ if __name__=="__main__":
         "Print"      : ["Expr expression"],
         "Var"        : ["Token name","Expr initializer"],
         "While"      : ["Expr condition","Stmt body"],
+        "Return"     : ["Token keyword","Expr value"],
         "Break"      : []
     },dependencies=["java.util.List"])
     define_ast("Expr", {

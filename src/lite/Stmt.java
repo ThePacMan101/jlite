@@ -18,6 +18,7 @@ abstract class Stmt{
 		T visitPrintStmt(Print stmt);
 		T visitVarStmt(Var stmt);
 		T visitWhileStmt(While stmt);
+		T visitReturnStmt(Return stmt);
 		T visitBreakStmt(Break stmt);
 	}
 
@@ -101,6 +102,18 @@ abstract class Stmt{
 		@Override
 		<T> T accept(Visitor<T> visitor){
 			return visitor.visitWhileStmt(this);
+		}
+	}
+	static class Return extends Stmt {
+		Return(Token keyword, Expr value){
+			this.keyword=keyword;
+			this.value=value;
+		}
+		final Token keyword;
+		final Expr value;
+		@Override
+		<T> T accept(Visitor<T> visitor){
+			return visitor.visitReturnStmt(this);
 		}
 	}
 	static class Break extends Stmt {
