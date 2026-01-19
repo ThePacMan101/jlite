@@ -145,6 +145,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             arguments.add(evaluate(argument));
         }
 
+        if(!(callee instanceof LiteCallable)){
+            throw new RuntimeError(expr.paren,
+                "Can only call functions and classes.");
+        }
+
         LiteCallable function = (LiteCallable)callee;
         return function.call(this,arguments);
     }
