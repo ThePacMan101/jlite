@@ -61,6 +61,7 @@ factor         -> unary (("*"|"/") unary)*
 unary          -> ("!"|"-"|"~") unary | call
 call           -> primary ( "(" arguments? ")" )*
 primary        -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "nil" |"("expression")" | "("expression")?"expression":"expression
+arguments      -> expression ( "," expression)*
 
 ```
 
