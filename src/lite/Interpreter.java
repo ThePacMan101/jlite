@@ -24,6 +24,74 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 public String toString(){return "<native function>";}
             }
         );
+        globals.define("abs", 
+            new LiteCallable() {
+                @Override
+                public int arity() {return 1;}  
+                @Override
+                public Object call(Interpreter interpreter, List<Object> arguments){
+                    checkNumberOperand(null, arguments.get(0));
+                    return (Double)Math.abs((Double)arguments.get(0));
+                }
+                @Override
+                public String toString(){return "<native function>";}
+            }
+        );
+        globals.define("floor", 
+            new LiteCallable() {
+                @Override
+                public int arity() {return 1;}  
+                @Override
+                public Object call(Interpreter interpreter, List<Object> arguments){
+                    checkNumberOperand(null, arguments.get(0));
+                    return (Double)Math.floor((Double)arguments.get(0));
+                }
+                @Override
+                public String toString(){return "<native function>";}
+            }
+        );
+        globals.define("max", 
+            new LiteCallable() {
+                @Override
+                public int arity() {return 2;}  
+                @Override
+                public Object call(Interpreter interpreter, List<Object> arguments){
+                    checkNumberOperand(null, arguments.get(0));
+                    checkNumberOperand(null, arguments.get(1));
+                    return (Double)Math.max((Double)arguments.get(0),(Double)arguments.get(1));
+                }
+                @Override
+                public String toString(){return "<native function>";}
+            }
+        );
+        globals.define("min", 
+            new LiteCallable() {
+                @Override
+                public int arity() {return 2;}  
+                @Override
+                public Object call(Interpreter interpreter, List<Object> arguments){
+                    checkNumberOperand(null, arguments.get(0));
+                    checkNumberOperand(null, arguments.get(1));
+                    return (Double)Math.min((Double)arguments.get(0),(Double)arguments.get(1));
+                }
+                @Override
+                public String toString(){return "<native function>";}
+            }
+        );
+        globals.define("pow", 
+            new LiteCallable() {
+                @Override
+                public int arity() {return 2;}  
+                @Override
+                public Object call(Interpreter interpreter, List<Object> arguments){
+                    checkNumberOperand(null, arguments.get(0));
+                    checkNumberOperand(null, arguments.get(1));
+                    return (Double)Math.pow((Double)arguments.get(0),(Double)arguments.get(1));
+                }
+                @Override
+                public String toString(){return "<native function>";}
+            }
+        );
     }
 
     @Override
