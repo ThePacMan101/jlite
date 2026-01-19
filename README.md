@@ -40,8 +40,11 @@ make uninstall
 Current grammar for the language's Parser:
 ```
 program        -> declaration * EOF
-declaration    -> varDecl | statement
+declaration    -> varDecl | fnDecl | statement
 varDecl        -> "var" IDENTIFIER ("=" exrpession)? ";"
+fnDecl         -> "fn" function
+function       -> IDENTIFIER "(" parameters? ")" block
+parameters     -> IDENTIFIER ("," IDENTIFIER)*
 statement      -> exprStmt | printStmt | block | ifStatement | whileStatement | forStatement | breakStatement
 exprStmt       -> expression ";"
 printStmt      -> "print" expression ";"
