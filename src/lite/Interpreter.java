@@ -132,10 +132,20 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             case SLASH: 
                 checkNumberOperands(expr.operator, left,right);
                 return (double)left / (double)right;
-            case STAR:  
-                checkNumberOperands(expr.operator, left,right);
-                return (double)left * (double)right;
-        
+            case STAR:
+                if(left instanceof Double && right instanceof Double){
+                    return (double)left * (double)right;
+
+                }else if(left instanceof String && right instanceof Double){
+                    checkRoundNumberOperand(expr.operator,right);
+                    long roundNumber = (long)Math.floor((Double)right);
+                    return ((String)left).repeat((int)roundNumber);
+                }else if(left instanceof Double && right instanceof String){
+                    checkRoundNumberOperand(expr.operator,left);
+                    long roundNumber = (long)Math.floor((Double)left);
+                    return ((String)right).repeat((int)roundNumber);
+                } 
+                throw new RuntimeError(expr.operator,"Operands must be two numbers or two strings.");        
             case GREATER:       
                 checkNumberOperands(expr.operator, left,right);    
                 return (double)left >  (double)right;
