@@ -144,8 +144,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                     checkRoundNumberOperand(expr.operator,left);
                     long roundNumber = (long)Math.floor((Double)left);
                     return ((String)right).repeat((int)roundNumber);
-                } 
-                throw new RuntimeError(expr.operator,"Operands must be two numbers or two strings.");        
+                }
+                throw new RuntimeError(expr.operator,"Invalid operand types. Must be two numbers or a number and a string.");        
             case GREATER:       
                 checkNumberOperands(expr.operator, left,right);    
                 return (double)left >  (double)right;
